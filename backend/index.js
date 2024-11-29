@@ -4,7 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const app = express();
-const defineCurrentUser = require('./middleware/defineCurrentUser')
+const defineCurrentUser = require('./middleware/auth')
 
 // Express Settings
 app.use(cors())
