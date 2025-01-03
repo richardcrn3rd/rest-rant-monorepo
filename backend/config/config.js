@@ -1,25 +1,18 @@
-require('dotenv').config()
-
 module.exports = {
-  "development": {
-    "username": process.env.DB_USERNAME,
-    "password": process.env.DB_PASSWORD,
-    "database": process.env.DB_DATABASE,
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
-}
+    development: {
+      dialect: 'sqlite',
+      storage: './database.sqlite', // Path to your SQLite database file
+      logging: false,              // Disable logging (optional)
+    },
+    test: {
+      dialect: 'sqlite',
+      storage: ':memory:',         // Use an in-memory database for testing
+      logging: false,
+    },
+    production: {
+      dialect: 'sqlite',
+      storage: './database.sqlite', // Same as development for SQLite
+      logging: false,
+    },
+  };
+  

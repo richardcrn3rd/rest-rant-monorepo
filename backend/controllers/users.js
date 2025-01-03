@@ -41,7 +41,7 @@ router.get('/:id', (req, res) => {
         return res.status(404).json({ message: `Invalid id "${userId}"` });
     }
 
-    const user = db.users.find(u => u.id === userId);
+    const user = db.users.findOne(u => u.id === userId);
     if (!user) {
         return res.status(404).json({ message: `Could not find user with id "${userId}"` });
     }

@@ -1,5 +1,5 @@
 const db = require('../db/database');
-const jwt = require('jsonwebtoken');
+const jwt = require('json-web-token');
 
 function defineCurrentUser(req, res, next) {
     const token = req.headers.authorization?.split(' ')[1];

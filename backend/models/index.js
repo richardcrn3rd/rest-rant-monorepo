@@ -5,16 +5,18 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+// Configuration for SQLite3
+const config = {
+  dialect: 'sqlite',               // Use SQLite as the dialect
+  storage: path.join(__dirname, '../database.sqlite'), // Path to SQLite file
+  logging: false,                  // Disable logging (optional)
+};
 
+let sequelize = new Sequelize(config); // Initialize Sequelize with SQLite config
+
+// Dynamically load all model files in the current directory
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -25,6 +27,7 @@ fs
     db[model.name] = model;
   });
 
+// Associate models if applicable
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

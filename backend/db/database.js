@@ -1,18 +1,25 @@
-// Simulated in-memory object database with seeded examples
-const db = {
-    users: [
-        { id: 1, name: 'Alice', email: 'alice@example.com', role: 'admin', password: 'hashedPassword1' },
-        { id: 2, name: 'Bob', email: 'bob@example.com', role: 'user', password: 'hashedPassword2' },
-    ],
-    places: [
-        { id: 1, name: 'Pasta Palace', city: 'Rome', state: 'Italy', cuisines: 'Italian', founded: 2020 },
-        { id: 2, name: 'Burger Barn', city: 'Austin', state: 'Texas', cuisines: 'American', founded: 2018 },
-    ],
-    comments: [
-        { id: 1, placeId: 1, content: 'Amazing food and great service!', rant: false, authorId: 1 },
-        { id: 2, placeId: 2, content: 'Not impressed with the cleanliness.', rant: true, authorId: 2 },
-    ],
-};
+'use strict';
+
+const { Sequelize } = require('sequelize');
+
+// Initialize Sequelize instance
+const sequelize = new Sequelize({
+  dialect: 'sqlite', // Using SQLite
+  storage: './database.sqlite', // Path to SQLite file
+  logging: console.log, // Optional: Enable logging for debugging
+});
+
+// Export the sequelize instance and Sequelize library
+const db = { sequelize, Sequelize };
+
+// Sync models to the database
+(async () => {
+  try {
+    await sequelize.sync({ force: false }); // Change `force` to `true` if you want to reset the DB each time
+    console.log('Database synced successfully!');
+  } catch (error) {
+    console.error('Error syncing database:', error);
+  }
+})();
 
 module.exports = db;
-
